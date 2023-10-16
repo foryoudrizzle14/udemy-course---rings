@@ -15,7 +15,6 @@ public class Movecontroller : MonoBehaviour
     private float xInput;
 
 
-    public bool isMoving;
 
     [Header ("Collision check")]
     [SerializeField] private Transform groundCheck;
@@ -37,9 +36,7 @@ public class Movecontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isMoving = rb.velocity.x != 0;
-        anim.SetBool("isMoving", isMoving);
-
+        AnimationControllers();
 
         CollisionChecks();
 
@@ -47,9 +44,16 @@ public class Movecontroller : MonoBehaviour
         Movement();
 
         if (Input.GetKeyDown(KeyCode.Space))
-           Jump();
-   
+            Jump();
+
     }
+
+    private void AnimationControllers()
+    {
+        bool isMoving = rb.velocity.x != 0;
+        anim.SetBool("isMoving", isMoving);
+    }
+
     private void CollisionChecks()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius,whatIsGround);
