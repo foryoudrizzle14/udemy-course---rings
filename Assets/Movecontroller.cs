@@ -52,6 +52,9 @@ public class Movecontroller : MonoBehaviour
     {
         bool isMoving = rb.velocity.x != 0;
         anim.SetBool("isMoving", isMoving);
+
+        anim.SetFloat("yvelocity", rb.velocity.y);
+        anim.SetBool("isGrounded", isGrounded);
     }
 
     private void CollisionChecks()
