@@ -7,23 +7,29 @@ using UnityEngine.XR;
 public class Movecontroller : MonoBehaviour
 {
 
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private Animator anim;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     private float xInput;
 
+
+    public bool isMoving;
+
     [Header ("Collision check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private LayerMask whatIsGround;
-    private bool isGrounded;    
+    private bool isGrounded;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
        
     }
@@ -31,7 +37,10 @@ public class Movecontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
+        isMoving = rb.velocity.x != 0;
+        anim.SetBool("isMoving", isMoving);
+
+
         CollisionChecks();
 
         xInput = Input.GetAxisRaw("Horizontal");
